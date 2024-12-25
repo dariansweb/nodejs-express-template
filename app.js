@@ -1,14 +1,15 @@
-// Import required modules
-const express = require('express');
-const path = require('path');
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// 1. Middleware to parse incoming JSON requests
+// Middleware to parse incoming JSON requests
 app.use(express.json());
 
-// 2. Serve static files early
+// Serve static files early
 app.use(express.static(path.join(__dirname, 'public'), {
     fallthrough: true,
     onerror: (err, req, res) => {
@@ -17,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public'), {
     }
 }));
 
-// 3. Define routes
+// Routes
 app.get('/', (req, res) => {
     res.send('Hello, world! Welcome to your basic Node.js Express server.');
 });
@@ -26,23 +27,27 @@ app.get('/api/greeting', async (req, res, next) => {
     try {
         res.json({ message: 'Hello from the API!' });
     } catch (error) {
-        next(error); // Pass errors to the error handler
+        next(error);
     }
 });
 
-// 4. Catch-All Route
+// Example route using fetch
+app.get('/api/external', async (req, res, next) => {
+    try {
+        const response = await fetch('https://api.example.com/data');
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        next(error);
+    }
+});
+
+// Catch-All Route
 app.use((req, res) => {
     res.status(404).send('Page not found');
 });
 
-// 5. Error Logging Middleware (optional)
-const errorLogger = (err, req, res, next) => {
-    console.error(`[${new Date().toISOString()}] Error:`, err);
-    next(err);
-};
-app.use(errorLogger);
-
-// 6. Global Error Handler
+// Error Handling Middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(err.status || 500).json({

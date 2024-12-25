@@ -1,6 +1,6 @@
-# Setting Up Your Node.js App
+# Setting Up Your Node.js App (Node.js LTS Version 22)
 
-Follow these steps to set up and run the Node.js app in your repository:
+This app leverages the latest features of Node.js LTS version 22, including ESM modules, the Fetch API, and enhanced performance capabilities. Follow these steps to set up and run the app in your repository:
 
 ---
 
@@ -64,6 +64,7 @@ node app.js
 
 - Open your browser and navigate to `http://localhost:3000` to see the basic welcome message.
 - Access the API endpoint at `http://localhost:3000/api/greeting` to get a JSON response.
+- Explore the `/api/external` endpoint, which demonstrates integration with the Fetch API to fetch data from an external API.
 
 ---
 
@@ -76,7 +77,7 @@ To start the app with npm:
 npm start
 ```
 
-Make sure your `package.json` includes the `start` script:
+Ensure your `package.json` includes the `start` script:
 
 ```json
 "scripts": {
@@ -89,15 +90,24 @@ To track your work in Git:
 
 ```bash
 git add .
-git commit -m "Initial commit of Node.js app"
+git commit -m "Initial commit of Node.js app with LTS version 22"
 ```
+
+---
+
+## Features of Node.js LTS Version 22 in This App
+
+- **ECMAScript Modules (ESM)**: Modern `import/export` syntax is used for cleaner, future-proof code.
+- **Global Fetch API**: Native `fetch()` is utilized for making server-side HTTP requests.
+- **Enhanced Static File Serving**: Static files are prioritized for performance.
+- **Improved Error Handling**: Structured error logging and middleware ensure robust error management.
 
 ---
 
 ## Notes
 
-- Ensure Node.js and npm are installed on your system.
+- Ensure Node.js (version 22 or later) and npm are installed on your system.
 - Customize the app as needed for your use case.
 
-Enjoy coding!
+Enjoy coding with modern Node.js features!
 
